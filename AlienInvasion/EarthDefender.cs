@@ -8,10 +8,23 @@ namespace AlienInvasion
 {
 	public class EarthDefender : IEarthDefender
 	{
+	    private Dictionary<IDefenceWeapon[], Armoury> _armouries;
 
-		public DefenceStrategy DefendEarth(IAlienInvasionWave invasionWave)
+	    public EarthDefender()
+	    {
+            _armouries = new Dictionary<IDefenceWeapon[], Armoury>();
+	    }
+
+	    public DefenceStrategy DefendEarth(IAlienInvasionWave invasionWave)
 		{
-            var armoury = ArmouryBuilder.From(invasionWave.WeaponsAvailableForDefence);
+            
+            if (!_armouries.ContainsKey(invasionWave.WeaponsAvailableForDefence))
+            {
+                _armouries.Add(invasionWave.WeaponsAvailableForDefence, ArmouryBuilder.From(invasionWave.WeaponsAvailableForDefence));
+            }
+
+
+	        var armoury = _armouries[invasionWave.WeaponsAvailableForDefence];
 		    return new DefenceStrategy(armoury.WeaponsFor(invasionWave.AlienInvaders));
 		}
 	}
