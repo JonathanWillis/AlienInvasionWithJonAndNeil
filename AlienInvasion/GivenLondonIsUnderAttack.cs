@@ -9,6 +9,7 @@ using Rhino.Mocks;
 
 namespace AlienInvasion
 {
+
 	[TestFixture]
 	public class GivenLondonIsUnderAttack
 	{
