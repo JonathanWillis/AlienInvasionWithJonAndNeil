@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlienInvasionRequester.cs" />
+    <Compile Include="ArmoryTests.cs" />
     <Compile Include="EarthDefender.cs" />
     <Compile Include="GivenLondonIsUnderAttack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
