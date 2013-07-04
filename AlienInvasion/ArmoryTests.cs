@@ -49,9 +49,42 @@ namespace AlienInvasion
         }
     }
 
+    [TestFixture]
+    public class GivenAnArmoryLoadedWithASinglePeashooter1000
+    {
+        private IDefenceWeapon _inputWeapon;
+        private IDefenceWeapon _outputWeapon;
+
+        [SetUp]
+        public void WhenCallingWeaponFor()
+        {
+            _inputWeapon = new Peashooter1000Blaster();
+            Armoury armoury = ArmouryBuilder.From(new IDefenceWeapon[] {_inputWeapon});
+            _outputWeapon = armoury.WeaponsFor(new IAlienInvader[] {new AlienInvader()}).First();
+        }
+
+        [Test]
+        public void ThenTheSameWeaponUsedToCreateTheArmoryIsReturned()
+        {
+            Assert.That(_outputWeapon, Is.SameAs(_inputWeapon));
+        }
+    }
+
     public class Peashooter500Blaster : IDefenceWeapon, IArmouryWeapon
     {
+        private readonly IDefenceWeapon _defenceWeapon;
         private int _reloadCounter;
+
+        public Peashooter500Blaster()
+        {
+            
+        }
+
+        public Peashooter500Blaster(IDefenceWeapon defenceWeapon)
+        {
+            _defenceWeapon = defenceWeapon;
+        }
+
         public DefenceWeaponType DefenceWeaponType {  get { return DefenceWeaponType.Peashooter500Blaster; }}
 
         public bool IsReloading()
@@ -61,7 +94,7 @@ namespace AlienInvasion
 
         public void DeployTo(IList<IDefenceWeapon> weapons)
         {
-            weapons.Add(this);
+            weapons.Add(_defenceWeapon);
             _reloadCounter = 2;
         }
 
@@ -73,7 +106,19 @@ namespace AlienInvasion
 
     public class Peashooter1000Blaster : IDefenceWeapon, IArmouryWeapon
     {
-        public DefenceWeaponType DefenceWeaponType { get { return DefenceWeaponType.Peashooter500Blaster; } }
+        private readonly IDefenceWeapon _defenceWeapon;
+
+        public Peashooter1000Blaster()
+        {
+            
+        }
+
+        public Peashooter1000Blaster(IDefenceWeapon defenceWeapon)
+        {
+            _defenceWeapon = defenceWeapon;
+        }
+
+        public DefenceWeaponType DefenceWeaponType { get { return DefenceWeaponType.Peashooter1000Blaster; } }
 
         public bool IsReloading()
         {
@@ -82,7 +127,7 @@ namespace AlienInvasion
 
         public void DeployTo(IList<IDefenceWeapon> weapons)
         {
-            weapons.Add(this);
+            weapons.Add(_defenceWeapon);
         }
 
         public void NewWaveIncoming()

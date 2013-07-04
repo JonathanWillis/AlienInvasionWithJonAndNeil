@@ -85,10 +85,10 @@ namespace AlienInvasion
                 switch (defenceWeapon.DefenceWeaponType)
                 {
                     case DefenceWeaponType.Peashooter500Blaster:
-                        armoury.Add(new Peashooter500Blaster());
+                        armoury.Add(new Peashooter500Blaster(defenceWeapon));
                         break;
                     case DefenceWeaponType.Peashooter1000Blaster:
-                        armoury.Add(new Peashooter1000Blaster());
+                        armoury.Add(new Peashooter1000Blaster(defenceWeapon));
                         break;
                 }
             }
