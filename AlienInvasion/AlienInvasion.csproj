@@ -53,8 +53,10 @@
   <ItemGroup>
     <Compile Include="AlienInvasionRequester.cs" />
     <Compile Include="ArmoryTests.cs" />
+    <Compile Include="Armoury.cs" />
     <Compile Include="EarthDefender.cs" />
     <Compile Include="GivenLondonIsUnderAttack.cs" />
+    <Compile Include="ArmouryWeapons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

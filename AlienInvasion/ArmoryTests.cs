@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using AlienInvasion.Client.AlienInvaders;
 using AlienInvasion.Client.DefenceAssets;
 using NUnit.Framework;
@@ -49,45 +48,24 @@ namespace AlienInvasion
         }
     }
 
-    public class Peashooter500Blaster : IDefenceWeapon, IArmouryWeapon
+    [TestFixture]
+    public class GivenAnArmoryLoadedWithASinglePeashooter1000
     {
-        private int _reloadCounter;
-        public DefenceWeaponType DefenceWeaponType {  get { return DefenceWeaponType.Peashooter500Blaster; }}
+        private IDefenceWeapon _inputWeapon;
+        private IDefenceWeapon _outputWeapon;
 
-        public bool IsReloading()
+        [SetUp]
+        public void WhenCallingWeaponFor()
         {
-            return _reloadCounter > 0;
+            _inputWeapon = new Peashooter1000Blaster();
+            Armoury armoury = ArmouryBuilder.From(new IDefenceWeapon[] {_inputWeapon});
+            _outputWeapon = armoury.WeaponsFor(new IAlienInvader[] {new AlienInvader()}).First();
         }
 
-        public void DeployTo(IList<IDefenceWeapon> weapons)
+        [Test]
+        public void ThenTheSameWeaponUsedToCreateTheArmoryIsReturned()
         {
-            weapons.Add(this);
-            _reloadCounter = 2;
-        }
-
-        public void NewWaveIncoming()
-        {
-            _reloadCounter--;
-        }
-    }
-
-    public class Peashooter1000Blaster : IDefenceWeapon, IArmouryWeapon
-    {
-        public DefenceWeaponType DefenceWeaponType { get { return DefenceWeaponType.Peashooter500Blaster; } }
-
-        public bool IsReloading()
-        {
-            return false;
-        }
-
-        public void DeployTo(IList<IDefenceWeapon> weapons)
-        {
-            weapons.Add(this);
-        }
-
-        public void NewWaveIncoming()
-        {
-           
+            Assert.That(_outputWeapon, Is.SameAs(_inputWeapon));
         }
     }
 }
